@@ -1,34 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# How Rich Are You? 💸
 
-## Getting Started
+> If you can't buy it twice, you can't afford it.
 
-First, run the development server:
+Tell us the thing you want and its price. Pay us that exact amount. If you survive, you're
+**certified rich** and get a share card for your socials. Built for Stupid Ideas Ottawa (Nov 7–8).
+
+**No real money moves.** Stripe runs in test mode only — the app refuses live keys.
+
+## Run it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **No Stripe key** → demo mode. Submitting skips Stripe and goes straight to the certificate.
+- **With Stripe** → copy `.env.example` to `.env.local` and add a `sk_test_...` key.
+  Pay with `4242 4242 4242 4242`, any future date, any CVC. Hit "back" on Stripe to land on the
+  "Rich in Spirit" page.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Pages
 
-## Learn More
+- `/` — form + fake "wealth audit"
+- `/certified/[id]` — certificate, count-up, confetti, share buttons
+- `/broke` — the losing (still shareable) certificate
+- `/api/card/[id]` — share image (`?size=story` for 1080×1350); `[id]` = `broke` for the losing card
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Push to Vercel. Set `STRIPE_SECRET_KEY` (test key) and `NEXT_PUBLIC_BASE_URL`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+UI follows the `bubbly-hype-ui` skill (neo-brutalist, Tailwind v4 + motion + canvas-confetti).
